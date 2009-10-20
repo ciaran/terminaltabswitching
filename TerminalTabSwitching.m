@@ -43,6 +43,12 @@
 	[self TerminalTabSwitching_awakeFromNib];
 }
 
+- (void)TerminalTabSwitching_newTab:(id)fp8;
+{
+	[self TerminalTabSwitching_newTab:fp8];
+	[self updateTabListMenu];
+}
+
 - (void)selectRepresentedTabViewItem:(NSMenuItem*)item
 {
 	NSTabViewItem* tabViewItem = [item representedObject];
@@ -59,5 +65,6 @@
 	[[[NSApplication sharedApplication] windowsMenu] addItem:[NSMenuItem separatorItem]];
 	[NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(windowDidBecomeMain:) withMethod:@selector(TerminalTabSwitching_windowDidBecomeMain:) error:NULL];
 	[NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(awakeFromNib) withMethod:@selector(TerminalTabSwitching_awakeFromNib) error:NULL];
+  [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTab:) withMethod:@selector(TerminalTabSwitching_newTab:) error:NULL];
 }
 @end
